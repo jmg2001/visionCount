@@ -41,7 +41,7 @@ def agregar_datos(datos):
         archivo.close()
     print("Datos agregados")
 
-agregar_datos(["id","conteo","date"])
+agregar_datos(["id","conteo","date","promedio"])
 
 global data_counter
 
@@ -383,7 +383,16 @@ def detect(file):
             if len(s.split(' ')) > 1:
                 string = s.split(' ')
                 string = string[0]
-                agregar_datos([data_counter, string, time_now])
+                if dataRecolected:
+                    agregar_datos([data_counter, string, time_now, porcentaje])
+                else:
+                    agregar_datos([data_counter, string, time_now, 0])
+                data_counter = data_counter+1
+            else:
+                if dataRecolected:
+                    agregar_datos([data_counter, 0, time_now, porcentaje])
+                else:
+                    agregar_datos([data_counter, 0, time_now, 0])
                 data_counter = data_counter+1
 
             # Save results (image with detections)
